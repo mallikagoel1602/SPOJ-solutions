@@ -1,0 +1,27 @@
+#TRT - Treats for the Cows
+#dynamic-programming
+#SPOJ solutions
+
+#include <bits/stdc++.h>
+using namespace std;
+int arr[2000];
+int dp[2001][2001];
+
+int profit(int be, int en, int day){
+     if(be<en)
+       return 0;
+     if(dp[be][en]!=-1)
+       return dp[be][en];
+     return (dp[be][en]= max(profit(be+1, en, day+1) + day*arr[be] , profit(be, en-1, day+1) + day*arr[en]));
+}
+
+int main(){
+    int N;
+    cin>>N;
+    for(int i=0; i<N; i++){
+       cin>>arr[i];
+    }
+    memset(dp, -1, sizeof(dp));
+    cout<<profit(0, N-1, 1)<<endl;
+    return 0;
+}
